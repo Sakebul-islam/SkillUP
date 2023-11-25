@@ -1,6 +1,6 @@
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import avatarImg from '../../../assets/images/placeholder.jpg';
 
 const MenuDropdown = () => {
@@ -30,26 +30,24 @@ const MenuDropdown = () => {
       {isOpen && (
         <div className='hidden md:block absolute rounded-md shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] w-[200px] bg-white overflow-hidden right-10 top-16 text-sm'>
           <div className='flex flex-col cursor-pointer'>
-            <Link
-              to='/'
+            <NavLink
+              to='/dashboard'
               className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
             >
-              Home
-            </Link>
-            <>
-              <Link
-                to='/dashboard'
-                className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-              >
-                Dashboard
-              </Link>
-              <Link
-                to='/'
-                className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
-              >
-                Log Out
-              </Link>
-            </>
+              Dashboard
+            </NavLink>
+            <NavLink
+              to='/signin'
+              className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+            >
+              Log In
+            </NavLink>
+            <NavLink
+              to='/signup'
+              className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+            >
+              Log Out
+            </NavLink>
           </div>
         </div>
       )}
@@ -61,25 +59,30 @@ const MenuDropdown = () => {
         }`}
       >
         <div className='flex flex-col cursor-pointer'>
-          <Link
+          <NavLink
             to='/'
-            className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+            className={({ isActive }) =>
+              `px-4 py-3 transition font-semibold ${
+                isActive ? 'bg-[#03b97c] text-white' : ''
+              }`
+            }
           >
             Home
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to='/dashboard'
             className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
           >
             Dashboard
-          </Link>
-          <Link
+          </NavLink>
+
+          <NavLink
             to='/'
             className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
           >
             Log Out
-          </Link>
+          </NavLink>
         </div>
       </div>
     </div>
