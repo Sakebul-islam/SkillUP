@@ -56,7 +56,7 @@ const MenuDropdown = () => {
 
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`md:hidden absolute rounded-md shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] w-[70vw] h-[100vh] bg-white overflow-hidden top-0 text-sm duration-300 p-6 ${
+        className={`md:hidden absolute rounded-md shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] w-[70vw] h-[100vh] bg-white overflow-hidden top-0 text-sm duration-300 p-6 ${
           isOpen ? 'left-[calc(0vw)]' : 'left-[-200vw]'
         }`}
       >
