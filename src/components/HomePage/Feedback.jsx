@@ -24,8 +24,7 @@ const Feedback = () => {
       return data?.data;
     },
   });
-
-  console.log(feedbacks);
+  
   return (
     <div className='py-6'>
       <Container>

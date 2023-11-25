@@ -1,0 +1,5 @@
+.mySwiper4 .swiper-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
