@@ -1,15 +1,60 @@
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import { getToken, saveUser } from '../../api/auth';
+import toast from 'react-hot-toast';
+import { useMutation } from '@tanstack/react-query';
+import axiosSecure from '../../api/axiosFunc';
 
 const SignIn = () => {
+  const { signIn, signInWithGoogle, user, loading } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const { mutate } = useMutation({
+    mutationKey: ['users'],
+    mutationFn: (bookingData) => {
+      return axiosSecure.post('/users', bookingData);
+    },
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      const result = await signIn(data?.email, data?.password);
+      await getToken(result?.user?.email);
+      toast.success('Login Success');
+      navigate(`${location?.state ? location?.state : '/'}`, { replace: true });
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const handleGoogleSignin = async () => {
+    if (loading) return;
+    try {
+      const result = await signInWithGoogle();
+      await mutate({
+        name: result?.user?.displayName,
+        image: result?.user?.photoURL,
+        email: result?.user?.email,
+        role: 'student',
+      });
+      toast.success('Login Success');
+      navigate(`${location?.state ? location?.state : '/'}`, {
+        replace: true,
+      });
+    } catch (err) {
+      toast.error(err?.message);
+    }
+  };
 
   return (
     <div className='flex justify-center items-center min-h-screen'>
@@ -54,7 +99,10 @@ const SignIn = () => {
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
-        <div className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
+        <div
+          onClick={handleGoogleSignin}
+          className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
+        >
           <FcGoogle />
           <p>Continue with Google</p>
         </div>

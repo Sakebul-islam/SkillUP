@@ -5,7 +5,7 @@ import avatarImg from '../../../assets/images/placeholder.jpg';
 import useAuth from '../../../hooks/useAuth';
 
 const MenuDropdown = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -38,18 +38,23 @@ const MenuDropdown = () => {
             >
               Dashboard
             </NavLink>
-            <NavLink
-              to='/signin'
-              className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
-            >
-              Log In
-            </NavLink>
-            <NavLink
-              to='/signup'
-              className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
-            >
-              Log Out
-            </NavLink>
+
+            {user?.email ? (
+              <NavLink
+                onClick={logOut}
+                to='/'
+                className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+              >
+                Log Out
+              </NavLink>
+            ) : (
+              <NavLink
+                to='/signin'
+                className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+              >
+                Log In
+              </NavLink>
+            )}
           </div>
         </div>
       )}
@@ -78,8 +83,21 @@ const MenuDropdown = () => {
           >
             Dashboard
           </NavLink>
+          <NavLink
+            to='/all-classes'
+            className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+          >
+            All Classes
+          </NavLink>
+          <NavLink
+            to='/texh-on-skillup'
+            className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+          >
+            Teach on SkillUP
+          </NavLink>
 
           <NavLink
+            onClick={logOut}
             to='/'
             className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
           >

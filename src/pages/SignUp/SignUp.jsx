@@ -4,9 +4,12 @@ import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { imageUpload } from '../../api/imageUploder';
 import toast from 'react-hot-toast';
+import { getToken } from '../../api/auth';
+import { useMutation } from '@tanstack/react-query';
+import axiosSecure from '../../api/axiosFunc';
 
 const SignUp = () => {
-  const { createUser, updateUserProfile } = useAuth();
+  const { createUser, updateUserProfile, loading } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -15,19 +18,31 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
+  const { mutate } = useMutation({
+    mutationKey: ['users'],
+    mutationFn: (bookingData) => {
+      return axiosSecure.post('/users', bookingData);
+    },
+  });
+
   const onSubmit = async (data) => {
     try {
       const imageData = await imageUpload(data?.picture[0]);
       const result = await createUser(data?.email, data?.password);
+      console.log('[Result]', result);
       await updateUserProfile(data?.name, imageData);
-      console.log(result);
-      // const dbResponse = await saveUser(result?.user);
-      // console.log(dbResponse);
-      // await getToken(result?.user?.email);
+      console.log('[updateUserProfile]', result);
+      await mutate({
+        name: result?.user?.displayName,
+        image: result?.user?.photoURL,
+        email: result?.user?.email,
+        role: 'student',
+      });
+      await getToken(result?.user?.email);
       toast.success('SignUp Success');
       navigate('/');
     } catch (err) {
-      toast.success(err?.message);
+      toast.error(err?.message);
       console.log(err);
     } finally {
       reset();
@@ -93,7 +108,9 @@ const SignUp = () => {
             {errors.exampleRequired && <span>This field is required</span>}
           </div>
           <div>
-            <Button type='submit'>Sign Up</Button>
+            <Button disabled={loading} type='submit'>
+              Sign Up
+            </Button>
           </div>
         </form>
         <div className='divider'></div>
