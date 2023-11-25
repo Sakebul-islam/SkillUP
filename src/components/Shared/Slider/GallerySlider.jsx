@@ -33,7 +33,7 @@ const Slider = ({ slideImages }) => {
           disableOnInteraction: false,
         }}
         modules={[Autoplay, FreeMode, Navigation, Thumbs]}
-        className='mySwiper2'
+        className='mySwiper1'
       >
         {slideImages.map((image, index) => (
           <SwiperSlide key={index}>

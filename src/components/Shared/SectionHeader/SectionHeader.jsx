@@ -5,7 +5,7 @@ const SectionHeader = ({ heading, headingDescription, headingSpan }) => {
         {heading}
         <span className='text-[#03b97c]'>{!!headingSpan && headingSpan}</span>
       </h2>
-      <p className='w-2/4 mx-auto'>{headingDescription}</p>
+      <p className='w-5/6 md:w-2/4 mx-auto'>{headingDescription}</p>
     </div>
   );
 };

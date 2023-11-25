@@ -3,6 +3,7 @@ import Footer from '../../components/Shared/Footer/Footer';
 import Navbar from '../../components/Shared/Navbar/Navbar';
 import HomeSlider from '../../components/HomePage/HomeSlider';
 import PartnersSection from '../../components/HomePage/PartnersSection';
+import Feedback from '../../components/HomePage/Feedback';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Navbar />
       <HomeSlider />
       <PartnersSection />
+      <Feedback />
       <Footer />
     </div>
   );
