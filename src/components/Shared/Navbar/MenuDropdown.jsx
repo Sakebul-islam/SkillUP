@@ -1,66 +1,25 @@
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
-import HostRequestModal from '../../Modal/HostRequestModal';
 import avatarImg from '../../../assets/images/placeholder.jpg';
-import { becomeHost } from '../../../api/auth';
-import useRole from '../../../hooks/useRole';
-import toast from 'react-hot-toast';
 
 const MenuDropdown = () => {
-  const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [role] = useRole();
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const modalHandler = async () => {
-    try {
-      const data = await becomeHost(user?.email);
-      console.log(data);
-      if (data.modifiedCount > 0) {
-        toast.success('Success!, Please wait for admin confirmation');
-      } else {
-        toast.success('Please! Wait for admin Approval ✋');
-      }
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setIsModalOpen(false);
-    }
-  };
 
   return (
-    <div className='relative'>
+    <div className=' select-none'>
       <div className='flex flex-row items-center gap-3'>
-        {/* Become A Host btn */}
-        <div className='hidden md:block'>
-          {(!user || !role || role === 'guest') && (
-            <button
-              onClick={() => setIsModalOpen(true)}
-              disabled={!user}
-              className='disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full  transition'
-            >
-              Host your home
-            </button>
-          )}
-        </div>
-        {/* Dropdown btn */}
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className='p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition'
+          className='p-4 md:py-1 md:px-2 border-[1px] border-neutral-100 flex flex-row items-center gap-3 rounded-md cursor-pointer hover:shadow-md transition'
         >
           <AiOutlineMenu />
-          <div className='hidden md:block'>
+          <div className='md:block'>
             {/* Avatar */}
             <img
               className='rounded-full'
               referrerPolicy='no-referrer'
-              src={user && user.photoURL ? user.photoURL : avatarImg}
+              src={avatarImg}
               alt='profile'
               height='30'
               width='30'
@@ -69,55 +28,60 @@ const MenuDropdown = () => {
         </div>
       </div>
       {isOpen && (
-        <div className='absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm'>
+        <div className='hidden md:block absolute rounded-md shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] w-[200px] bg-white overflow-hidden right-10 top-16 text-sm'>
           <div className='flex flex-col cursor-pointer'>
             <Link
               to='/'
-              className='block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+              className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
             >
               Home
             </Link>
-
-            {user ? (
-              <>
-                <Link
-                  to='/dashboard'
-                  className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  onClick={logOut}
-                  to='/'
-                  className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
-                >
-                  Log Out
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  to='/login'
-                  className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                >
-                  Login
-                </Link>
-                <Link
-                  to='/signup'
-                  className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
+            <>
+              <Link
+                to='/dashboard'
+                className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+              >
+                Dashboard
+              </Link>
+              <Link
+                to='/'
+                className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+              >
+                Log Out
+              </Link>
+            </>
           </div>
         </div>
       )}
-      <HostRequestModal
-        isOpen={isModalOpen}
-        closeModal={closeModal}
-        modalHandler={modalHandler}
-      />
+
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className={`md:hidden absolute rounded-md shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] w-[70vw] h-[100vh] bg-white overflow-hidden top-0 text-sm duration-300 p-6 ${
+          isOpen ? 'left-[calc(0vw)]' : 'left-[-200vw]'
+        }`}
+      >
+        <div className='flex flex-col cursor-pointer'>
+          <Link
+            to='/'
+            className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+          >
+            Home
+          </Link>
+
+          <Link
+            to='/dashboard'
+            className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+          >
+            Dashboard
+          </Link>
+          <Link
+            to='/'
+            className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+          >
+            Log Out
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
