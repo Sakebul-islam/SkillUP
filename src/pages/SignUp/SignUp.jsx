@@ -1,14 +1,38 @@
 import { useForm } from 'react-hook-form';
 import Button from '../../components/Button/Button';
-import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import { Link, useNavigate } from 'react-router-dom';
+import { imageUpload } from '../../api/imageUploder';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
+  const { createUser, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async (data) => {
+    try {
+      const imageData = await imageUpload(data?.picture[0]);
+      const result = await createUser(data?.email, data?.password);
+      await updateUserProfile(data?.name, imageData);
+      console.log(result);
+      // const dbResponse = await saveUser(result?.user);
+      // console.log(dbResponse);
+      // await getToken(result?.user?.email);
+      toast.success('SignUp Success');
+      navigate('/');
+    } catch (err) {
+      toast.success(err?.message);
+      console.log(err);
+    } finally {
+      reset();
+    }
+  };
 
   return (
     <div className='flex justify-center items-center min-h-screen'>

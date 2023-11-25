@@ -2,8 +2,10 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import avatarImg from '../../../assets/images/placeholder.jpg';
+import useAuth from '../../../hooks/useAuth';
 
 const MenuDropdown = () => {
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -17,9 +19,9 @@ const MenuDropdown = () => {
           <div className='md:block'>
             {/* Avatar */}
             <img
-              className='rounded-full'
+              className='rounded-full w-12 h-12'
               referrerPolicy='no-referrer'
-              src={avatarImg}
+              src={user?.photoURL ? user?.photoURL : avatarImg}
               alt='profile'
               height='30'
               width='30'

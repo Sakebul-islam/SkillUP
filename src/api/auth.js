@@ -1,4 +1,4 @@
-import axiosSecure from './index';
+import axiosSecure from './axiosFunc';
 
 // get token from server
 export const getToken = async (email) => {
