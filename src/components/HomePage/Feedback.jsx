@@ -29,7 +29,8 @@ const Feedback = () => {
     <div className='py-6'>
       <Container>
         <SectionHeader
-          heading={'Student Feedbacks'}
+          heading={'Student'}
+          headingSpan={'Feedbacks'}
           headingDescription={`Explore insights from our students! Delve into the experiences and thoughts they've shared in the 'Student Feedbacks' section, offering a glimpse into the impact of our courses.`}
         />
         <div className='h-[500px] py-4'>

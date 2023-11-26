@@ -7,6 +7,7 @@ import Feedback from '../../components/HomePage/Feedback';
 import PlatformOverview from '../../components/HomePage/PlatformOverview';
 import BecomeAInstractor from '../../components/HomePage/BecomeAInstractor';
 import MapSection from '../../components/HomePage/MapSection';
+import Instructors from '../../components/HomePage/Instructors';
 
 const Home = () => {
   return (
@@ -14,14 +15,13 @@ const Home = () => {
       <Helmet>
         <title>Skill UP || Student and Class management System</title>
       </Helmet>
-      <Navbar />
       <HomeSlider />
       <PartnersSection />
       <Feedback />
+      <Instructors />
       <PlatformOverview />
       <BecomeAInstractor />
       <MapSection />
-      <Footer />
     </>
   );
 };

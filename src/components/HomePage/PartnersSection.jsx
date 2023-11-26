@@ -11,24 +11,29 @@ import './PartnersSection.css';
 import { Autoplay } from 'swiper/modules';
 
 import SectionHeader from '../Shared/SectionHeader/SectionHeader';
-import partner1 from '../../assets/images/partners/p1.png';
-import partner2 from '../../assets/images/partners/p2.png';
-import partner3 from '../../assets/images/partners/p3.png';
-import partner4 from '../../assets/images/partners/p4.png';
-import partner5 from '../../assets/images/partners/p5.png';
-import partner6 from '../../assets/images/partners/p6.png';
 import Container from '../Shared/Container';
 
 const PartnersSection = () => {
-  const partners = [partner1, partner2, partner3, partner4, partner5, partner6];
+  const partners = [
+    'https://i.ibb.co/WFB56xx/p1.png',
+    'https://i.ibb.co/qk83VQ6/p2.png',
+    'https://i.ibb.co/QPSh9MY/p3.png',
+    'https://i.ibb.co/9nwMQ9g/p4.png',
+    'https://i.ibb.co/KjSJz54/p5.png',
+    'https://i.ibb.co/TKJWcMY/p6.png',
+    'https://i.ibb.co/tJD3y24/p7.png',
+    'https://i.ibb.co/RP9nmKt/p8.png',
+    'https://i.ibb.co/Sn7BMNG/p9.png',
+  ];
   return (
     <div className='py-12'>
       <Container>
         <SectionHeader
-          heading={'Our Partners'}
+          heading={'Our'}
+          headingSpan={'Partners'}
           headingDescription={'Those are our Collaboration partners'}
         />
-        <div className='h-[40vh] flex flex-row justify-center items-center py-4 overflow-clip'>
+        <div className='h-[20vh] flex flex-row justify-center items-center py-4 overflow-clip'>
           <Swiper
             slidesPerView={1}
             spaceBetween={10}

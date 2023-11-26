@@ -9,10 +9,13 @@ const Navbar = () => {
       <div className='py-4 border-b-[1px]'>
         <Container>
           <div className='flex flex-row  items-center justify-between gap-3 md:gap-0'>
-            <Link to='/' className='max-w-[200px]'>
+            <Link
+              to='/'
+              className='max-w-[150px] md:max-w-[180px] lg:max-w-[200px]'
+            >
               <img src={Logo} alt='skill UP' title='skill up' />
             </Link>
-            <div className='flex justify-between items-center gap-6 hidden md:block'>
+            <div className='justify-between items-center gap-6 hidden md:block'>
               <NavLink
                 to='/'
                 className={({ isActive }) =>
@@ -30,7 +33,7 @@ const Navbar = () => {
                 All Classes
               </NavLink>
               <NavLink
-                to='texh-on-skillup'
+                to='tech-on-skillup'
                 className={({ isActive }) =>
                   `px-4 py-2 ${isActive ? 'bg-[#03b97c] text-white' : ''}`
                 }

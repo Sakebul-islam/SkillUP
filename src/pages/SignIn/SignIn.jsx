@@ -3,7 +3,7 @@ import Button from '../../components/Button/Button';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import { getToken, saveUser } from '../../api/auth';
+import { getToken } from '../../api/auth';
 import toast from 'react-hot-toast';
 import { useMutation } from '@tanstack/react-query';
 import axiosSecure from '../../api/axiosFunc';

@@ -8,7 +8,8 @@ const PlatformOverview = () => {
     <div className='my-6'>
       <Container>
         <SectionHeader
-          heading={'Dive into our Platform Overview'}
+          heading={'Dive into our'}
+          headingSpan={'Platform Overview'}
           headingDescription={`Quick stats on total users, classes, and student enrollments. Experience the pulse of our dynamic learning environment`}
         />
         <div className='flex flex-col md:flex-row gap-4'>

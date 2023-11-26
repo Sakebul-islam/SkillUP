@@ -14,7 +14,6 @@ import './GallerySlider.css';
 import { Autoplay, FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
 const Slider = ({ slideImages }) => {
-
   // import required modules
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
