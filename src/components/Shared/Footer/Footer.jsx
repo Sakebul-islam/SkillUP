@@ -8,7 +8,7 @@ const Footer = () => {
       <div className='py-6 text-sm text-center bg-gray-50 text-gray-600'>
         © {currentYear}
         <Link to='/' className='text-[#03b97c] font-bold'>
-          &nbsp;Skill Up&nbsp;
+          &nbsp;Skill UP&nbsp;
         </Link>
         Corporation. All rights reserved.
       </div>

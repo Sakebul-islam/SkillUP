@@ -7,6 +7,8 @@ import MainLayout from '../layouts/MainLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 import MyEnrollClass from '../pages/Dashboard/Student/MyEnrollClass';
 import AllClasses from '../pages/AllClasses/AllClasses';
+import TechOnSkillup from '../pages/TechOnSkillup/TechOnSkillup';
+import PrivateRoute from './PrivateRoute';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -19,11 +21,19 @@ export const router = createBrowserRouter([
       },
       {
         path: '/all-classes',
-        element: <AllClasses />,
+        element: (
+          <PrivateRoute>
+            <AllClasses />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/tech-on-skillup',
-        element: <AllClasses />,
+        element: (
+          <PrivateRoute>
+            <TechOnSkillup />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -31,11 +41,19 @@ export const router = createBrowserRouter([
   { path: 'signup', element: <SignUp /> },
   {
     path: 'dashboard',
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />,
+      </PrivateRoute>
+    ),
     children: [
       {
         path: '/dashboard/my-enroll-class',
-        element: <MyEnrollClass />,
+        element: (
+          <PrivateRoute>
+            <MyEnrollClass />
+          </PrivateRoute>
+        ),
       },
     ],
   },
