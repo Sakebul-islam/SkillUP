@@ -9,10 +9,15 @@ import MyEnrollClass from '../pages/Dashboard/Student/MyEnrollClass';
 import AllClasses from '../pages/AllClasses/AllClasses';
 import TechOnSkillup from '../pages/TechOnSkillup/TechOnSkillup';
 import PrivateRoute from './PrivateRoute';
+import StudentRoute from './StudentRoute';
+import TeacherRoute from './TeacherRoute';
+import AdminRoute from './AdminRoute';
 import Users from '../pages/Dashboard/Admin/Users';
 import AllClassesByAdmin from '../pages/Dashboard/Admin/AllClassesByAdmin';
 import TeacherRequest from '../pages/Dashboard/Admin/TeacherRequest';
 import Profile from '../pages/Dashboard/Profile/Profile';
+import AddClass from '../pages/Dashboard/Teacher/AddClass';
+import MyClass from '../pages/Dashboard/Teacher/MyClass';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -52,10 +57,41 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
+        path: '/dashboard/profile',
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: '/dashboard/my-enroll-class',
         element: (
           <PrivateRoute>
-            <MyEnrollClass />
+            <StudentRoute>
+              <MyEnrollClass />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
+      },
+      // Teacher Routes
+      {
+        path: '/dashboard/add-class',
+        element: (
+          <PrivateRoute>
+            <TeacherRoute>
+              <AddClass />
+            </TeacherRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/my-class',
+        element: (
+          <PrivateRoute>
+            <TeacherRoute>
+              <MyClass />
+            </TeacherRoute>
           </PrivateRoute>
         ),
       },
@@ -64,7 +100,9 @@ export const router = createBrowserRouter([
         path: '/dashboard/users',
         element: (
           <PrivateRoute>
-            <Users />
+            <AdminRoute>
+              <Users />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -72,7 +110,9 @@ export const router = createBrowserRouter([
         path: '/dashboard/teacher-request',
         element: (
           <PrivateRoute>
-            <TeacherRequest />
+            <AdminRoute>
+              <TeacherRequest />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -80,15 +120,9 @@ export const router = createBrowserRouter([
         path: '/dashboard/all-classes',
         element: (
           <PrivateRoute>
-            <AllClassesByAdmin />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: '/dashboard/profile',
-        element: (
-          <PrivateRoute>
-            <Profile />
+            <AdminRoute>
+              <AllClassesByAdmin />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },

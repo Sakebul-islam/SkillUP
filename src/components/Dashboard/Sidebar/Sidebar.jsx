@@ -12,7 +12,7 @@ import useAuth from '../../../hooks/useAuth';
 import useRole from '../../../hooks/useRole';
 import StudentMenu from './StudentMenu';
 import TeacherMenu from './TeacherMenu';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import AdminMenu from './AdminMenu';
 
 const Sidebar = () => {
@@ -65,14 +65,19 @@ const Sidebar = () => {
             <div className='flex flex-col justify-between flex-1'>
               {/* If a user is host */}
               <nav>
-                <Link
+                <NavLink
                   to='/dashboard'
-                  className='flex items-center px-4 py-2 mt-5  transition-colors bg-[#03b97c]  text-white'
+                  end
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 mt-5 transition-colors text-white ${
+                      isActive ? 'bg-[#03b97c]' : 'bg-gray-700'
+                    }`
+                  }
                 >
                   <MdDashboardCustomize className='w-5 h-5' />
 
                   <span className='mx-4 font-medium'>Dashboard</span>
-                </Link>
+                </NavLink>
 
                 {role === 'student' && <StudentMenu />}
                 {role === 'teacher' && <TeacherMenu />}
