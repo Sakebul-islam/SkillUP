@@ -50,8 +50,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className='flex justify-center items-center min-h-screen'>
-      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900 w-2/4'>
+    <div className='flex justify-center items-center min-h-screen overflow-x-hidden'>
+      <div className='flex flex-col w-11/12 sm:max-w-md p-6 rounded-sm sm:p-10 bg-gray-100 text-gray-900'>
         <div className='mb-8 text-center'>
           <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
           <p className='text-sm text-gray-400'>Welcome to SkillUp</p>
@@ -71,7 +71,7 @@ const SignUp = () => {
           </div>
           {/* image input Field  */}
           <div>
-            <label htmlFor='image' className='block mb-2 text-sm'>
+            <label htmlFor='image' className='inline-block w-full mb-2 text-sm'>
               Select Image:
             </label>
             <input
@@ -114,7 +114,7 @@ const SignUp = () => {
           </div>
         </form>
         <div className='divider'></div>
-        <p className='px-6 text-sm text-center text-gray-400'>
+        <p className='px-3 sm:px-6 text-sm text-center text-gray-400'>
           Already have an account?&nbsp;
           <Link
             className='hover:underline hover:text-[#03b97c] text-gray-600'

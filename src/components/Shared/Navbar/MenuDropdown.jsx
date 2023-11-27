@@ -100,13 +100,22 @@ const MenuDropdown = () => {
             Teach on SkillUP
           </NavLink>
 
-          <NavLink
-            onClick={logOut}
-            to='/'
-            className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
-          >
-            Log Out
-          </NavLink>
+          {user?.email ? (
+            <NavLink
+              onClick={logOut}
+              to='/'
+              className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+            >
+              Log Out
+            </NavLink>
+          ) : (
+            <NavLink
+              to='/signin'
+              className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
+            >
+              Log In
+            </NavLink>
+          )}
         </div>
       </div>
     </div>

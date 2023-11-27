@@ -7,7 +7,7 @@ const Button = ({ children, disabled, outline, small, icon: Icon }) => {
           relative
           disabled:opacity-70
           disabled:cursor-not-allowed
-          rounded-lg
+          rounded-sm
           hover:opacity-80
           transition
           px-4
