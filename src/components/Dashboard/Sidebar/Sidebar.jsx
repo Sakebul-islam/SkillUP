@@ -9,6 +9,7 @@ import { FcSettings } from 'react-icons/fc';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { MdDashboardCustomize } from 'react-icons/md';
 import useAuth from '../../../hooks/useAuth';
+import useRole from '../../../hooks/useRole';
 import StudentMenu from './StudentMenu';
 import TeacherMenu from './TeacherMenu';
 import { Link } from 'react-router-dom';
@@ -17,8 +18,9 @@ import AdminMenu from './AdminMenu';
 const Sidebar = () => {
   const { logOut } = useAuth();
   const [isActive, setActive] = useState(false);
+  const [role] = useRole();
 
-  const role = 'admin';
+  // const role = 'admin';
 
   // Sidebar Responsive Handler
   const handleToggle = () => {

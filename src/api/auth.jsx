@@ -19,6 +19,12 @@ export const getAllUsers = async () => {
   return data;
 };
 
+// get single user
+export const getSingleUsers = async ({ email }) => {
+  const { data } = await axiosSecure(`/profile?email=${email}`);
+  return data;
+};
+
 // update user Role
 export const updateRole = async ({ email, role }) => {
   const currentUser = {
@@ -41,4 +47,10 @@ export const updateStatus = async ({ id, status }) => {
     status,
   });
   return data;
+};
+
+// get user role
+export const getRole = async (email) => {
+  const { data } = await axiosSecure(`/users/${email}`);
+  return data?.role;
 };

@@ -44,6 +44,9 @@ const SignIn = () => {
         name: result?.user?.displayName,
         image: result?.user?.photoURL,
         email: result?.user?.email,
+        phone: `017${Math.floor(
+          Math.random() * (99999999 - 10000000 + 1) + 10000000
+        )}`,
         role: 'student',
       });
       toast.success('Login Success');

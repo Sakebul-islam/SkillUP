@@ -10,7 +10,9 @@ import AllClasses from '../pages/AllClasses/AllClasses';
 import TechOnSkillup from '../pages/TechOnSkillup/TechOnSkillup';
 import PrivateRoute from './PrivateRoute';
 import Users from '../pages/Dashboard/Admin/Users';
+import AllClassesByAdmin from '../pages/Dashboard/Admin/AllClassesByAdmin';
 import TeacherRequest from '../pages/Dashboard/Admin/TeacherRequest';
+import Profile from '../pages/Dashboard/Profile/Profile';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -71,6 +73,22 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <TeacherRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/all-classes',
+        element: (
+          <PrivateRoute>
+            <AllClassesByAdmin />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/profile',
+        element: (
+          <PrivateRoute>
+            <Profile />
           </PrivateRoute>
         ),
       },

@@ -14,12 +14,10 @@ const UserDataRow = ({ user, refetch }) => {
     try {
       const data = await updateRole({ email: user?.email, role });
       if (data?.modifiedCount > 0) {
-        console.log(data);
         refetch();
         toast.success('User Role Updated successfully!');
       }
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
     } finally {
       setIsOpen(false);

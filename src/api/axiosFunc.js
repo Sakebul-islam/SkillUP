@@ -16,7 +16,7 @@ axiosSecure.interceptors.response.use(
       (error.response && error.response.status === 403)
     ) {
       await clearCookie();
-      window.location.replace('/login');
+      window.location.replace('/signin');
     }
 
     return Promise.reject(error);

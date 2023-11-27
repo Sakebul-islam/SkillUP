@@ -36,6 +36,7 @@ const SignUp = () => {
         name: result?.user?.displayName,
         image: result?.user?.photoURL,
         email: result?.user?.email,
+        phone: data?.phone,
         role: 'student',
       });
       await getToken(result?.user?.email);
@@ -67,7 +68,9 @@ const SignUp = () => {
               placeholder='Enter Your Name Hare'
               {...register('name', { required: true })}
             />
-            {errors.exampleRequired && <span>This field is required</span>}
+            {errors.name && (
+              <span className='text-red-500'>This field is required</span>
+            )}
           </div>
           {/* image input Field  */}
           <div>
@@ -75,12 +78,41 @@ const SignUp = () => {
               Select Image:
             </label>
             <input
-              required=''
               type='file'
               id='image'
               {...register('picture', { required: true })}
               accept='image/*'
             />
+            {errors.picture && (
+              <span className='text-red-500 inline-block'>
+                This field is required
+              </span>
+            )}
+          </div>
+          {/* Number Field  */}
+          <div className='flex gap-1 flex-col justify-between items-start'>
+            <label htmlFor='phone'>Phone Number</label>
+            <input
+              className='w-full px-3 py-2 border rounded-sm border-gray-300 focus:outline-[#03b97c] bg-gray-200 text-gray-900'
+              id='phone'
+              type='number'
+              placeholder='Enter Your Phone Number'
+              {...register('phone', {
+                required: true,
+                pattern: {
+                  value: /^(01)[0-9]{9}$/, // Regex for 11-digit phone number starting with 01
+                  message:
+                    'Invalid phone number. Must be 11 digits and start with 01.',
+                },
+              })}
+            />
+            {errors.phone && (
+              <span className='text-red-500'>{`${
+                errors.phone.message
+                  ? errors.phone.message
+                  : 'This field is required'
+              }`}</span>
+            )}
           </div>
           {/* Email Field  */}
           <div className='flex gap-1 flex-col justify-between items-start'>
@@ -92,7 +124,13 @@ const SignUp = () => {
               placeholder='Enter Your Email Hare'
               {...register('email', { required: true })}
             />
-            {errors.exampleRequired && <span>This field is required</span>}
+            {errors.email && (
+              <span className='text-red-500'>{`${
+                errors.email.message
+                  ? errors.email.message
+                  : 'This field is required'
+              }`}</span>
+            )}
           </div>
 
           {/* Input Password */}
@@ -105,7 +143,9 @@ const SignUp = () => {
               placeholder='**********'
               {...register('password', { required: true })}
             />
-            {errors.exampleRequired && <span>This field is required</span>}
+            {errors.password && (
+              <span className='text-red-500'>This field is required</span>
+            )}
           </div>
           <div>
             <Button disabled={loading} type='submit'>
