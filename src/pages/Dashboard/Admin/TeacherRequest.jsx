@@ -1,28 +1,33 @@
-import { useQuery } from '@tanstack/react-query';
-import Container from '../../../components/Shared/Container';
-import { getAllUsers } from '../../../api/auth';
-import Loader from '../../../components/Shared/Loader';
-import UserDataRow from '../../../components/Dashboard/Admin/UserDataRow';
 import { Helmet } from 'react-helmet-async';
+import { useQuery } from '@tanstack/react-query';
+import TeacherRequestDataRow from '../../../components/Dashboard/Admin/TeacherRequestDataRow';
+import Loader from '../../../components/Shared/Loader';
+import { getAllTeacherRequest } from '../../../api/auth';
 
-const Users = () => {
+const TeacherRequest = () => {
   const {
-    data: users = [],
+    data: teacherRequests = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ['users'],
-    queryFn: async () => await getAllUsers(),
+    queryKey: ['teacherRequests'],
+    queryFn: async () => await getAllTeacherRequest(),
   });
-
+  console.log(teacherRequests);
   if (isLoading) return <Loader />;
+  if (teacherRequests?.length < 0)
+    return (
+      <div className='text-2xl font-bold h-screen flex justify-center items-center'>
+        😥 No Request Found!
+      </div>
+    );
 
   return (
-    <>
+    <div className='container mx-auto px-4 sm:px-8'>
       <Helmet>
-        <title>Users Role || Dashboard</title>
+        <title>Teacher Request || Dashboard</title>
       </Helmet>
-      <Container>
+
         <div className='py-8'>
           <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
             <div className='inline-block min-w-full shadow  overflow-hidden'>
@@ -33,38 +38,50 @@ const Users = () => {
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal truncate'
                     >
-                      User name
+                      Name
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal truncate'
                     >
-                      User Email
+                      Image
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal truncate'
                     >
-                      User image
+                      Experience
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal truncate'
                     >
-                      User Role
+                      Title
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal truncate'
                     >
-                      Make admin
+                      Category
+                    </th>
+                    <th
+                      scope='col'
+                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal truncate'
+                    >
+                      Status
+                    </th>
+                    <th
+                      scope='col'
+                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal truncate'
+                    >
+                      Action
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {users &&
-                    users.map((user) => (
-                      <UserDataRow
+                  {teacherRequests &&
+                    teacherRequests.map((user) => (
+                      <TeacherRequestDataRow
                         key={user?._id}
                         user={user}
                         refetch={refetch}
@@ -75,9 +92,8 @@ const Users = () => {
             </div>
           </div>
         </div>
-      </Container>
-    </>
+    </div>
   );
 };
 
-export default Users;
+export default TeacherRequest;

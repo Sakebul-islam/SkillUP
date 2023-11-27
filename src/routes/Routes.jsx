@@ -10,6 +10,7 @@ import AllClasses from '../pages/AllClasses/AllClasses';
 import TechOnSkillup from '../pages/TechOnSkillup/TechOnSkillup';
 import PrivateRoute from './PrivateRoute';
 import Users from '../pages/Dashboard/Admin/Users';
+import TeacherRequest from '../pages/Dashboard/Admin/TeacherRequest';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -62,6 +63,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Users />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/teacher-request',
+        element: (
+          <PrivateRoute>
+            <TeacherRequest />
           </PrivateRoute>
         ),
       },

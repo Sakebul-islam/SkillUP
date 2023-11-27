@@ -71,7 +71,7 @@ const TechOnSkillup = () => {
         const teacherInfo = {
           name,
           image: imageData,
-          teachOn,
+          title: teachOn,
           experience,
           categories: categoryArray,
           email: user?.email,

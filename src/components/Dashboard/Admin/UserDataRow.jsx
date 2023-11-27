@@ -3,8 +3,10 @@ import { useState } from 'react';
 import { updateRole } from '../../../api/auth';
 import UpdateUserRole from '../../Modal/UpdateUserRole';
 import toast from 'react-hot-toast';
+import useAuth from '../../../hooks/useAuth';
 
 const UserDataRow = ({ user, refetch }) => {
+  const { user: systemUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const modalHandler = async (role) => {
@@ -31,7 +33,7 @@ const UserDataRow = ({ user, refetch }) => {
           {user?.name}
         </p>
       </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm capitalize'>
+      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <p className='text-gray-900 whitespace-no-wrap truncate'>
           {user?.email}
         </p>
@@ -41,7 +43,8 @@ const UserDataRow = ({ user, refetch }) => {
           <img
             className='inline-block w-full h-full'
             src={user?.image}
-            alt=''
+            alt={user?.name}
+            title={user?.name}
           />
         </p>
       </td>
@@ -64,16 +67,21 @@ const UserDataRow = ({ user, refetch }) => {
       </td>
 
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <span
+        <button
+          disabled={systemUser?.email === user?.email}
           onClick={() => setIsOpen(true)}
-          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
+          className={`relative ${
+            systemUser?.email === user?.email
+              ? 'cursor-not-allowed'
+              : 'cursor-pointer'
+          } inline-block px-3 py-1 font-semibold text-green-900 leading-tight`}
         >
           <span
             aria-hidden='true'
             className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
           ></span>
           <span className='relative truncate'>Update Role</span>
-        </span>
+        </button>
         <UpdateUserRole
           isOpen={isOpen}
           setIsOpen={setIsOpen}
