@@ -9,6 +9,7 @@ import MyEnrollClass from '../pages/Dashboard/Student/MyEnrollClass';
 import AllClasses from '../pages/AllClasses/AllClasses';
 import TechOnSkillup from '../pages/TechOnSkillup/TechOnSkillup';
 import PrivateRoute from './PrivateRoute';
+import Users from '../pages/Dashboard/Admin/Users';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -52,6 +53,15 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyEnrollClass />
+          </PrivateRoute>
+        ),
+      },
+      // Admin Routes
+      {
+        path: '/dashboard/users',
+        element: (
+          <PrivateRoute>
+            <Users />
           </PrivateRoute>
         ),
       },

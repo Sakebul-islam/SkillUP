@@ -1,17 +1,5 @@
 import axiosSecure from './axiosFunc';
 
-// export const saveUser = async (user) => {
-//   const currentUser = {
-//     name: user?.displayName,
-//     image: user?.photoURL,
-//     email: user?.email,
-//     role: 'admin',
-//   };
-
-//   const { data } = await axiosSecure.post(`/users`, currentUser);
-//   return data;
-// };
-
 // get token from server
 export const getToken = async (email) => {
   const { data } = await axiosSecure.post(`/jwt`, { email });
@@ -22,5 +10,21 @@ export const getToken = async (email) => {
 // Remove token from Browser
 export const clearCookie = async () => {
   const { data } = await axiosSecure.get(`/logout`);
+  return data;
+};
+
+// get all user
+export const getAllUsers = async () => {
+  const { data } = await axiosSecure(`/users`);
+  return data;
+};
+
+// update user Role
+export const updateRole = async ({ email, role }) => {
+  const currentUser = {
+    email,
+    role,
+  };
+  const { data } = await axiosSecure.put(`/users/update/${email}`, currentUser);
   return data;
 };
