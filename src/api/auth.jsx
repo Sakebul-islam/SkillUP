@@ -129,3 +129,8 @@ export const getTopTeachers = async () => {
   const { data } = await axiosPublic('/top-teachers');
   return data;
 };
+// get top 4 teacher
+export const featuredCourses = async () => {
+  const { data } = await axiosPublic('/featured-courses');
+  return data;
+};

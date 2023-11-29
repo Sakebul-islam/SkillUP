@@ -9,7 +9,6 @@ const Instructors = () => {
     queryKey: ['topTeachers'],
     queryFn: async () => await getTopTeachers(),
   });
-  console.log(topTeachers);
 
   return (
     <div className='py-6'>

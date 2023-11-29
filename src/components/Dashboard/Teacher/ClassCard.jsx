@@ -54,7 +54,7 @@ const ClassCard = ({ myClass }) => {
         </span>
       </figure>
       <div className='p-4 flex-grow'>
-        <h3 className='line-clamp-2	text-lg font-bold'>{myClass?.classTitle}</h3>
+        <h3 className='line-clamp-2	text-lg font-bold min-h-[56px]'>{myClass?.classTitle}</h3>
         <div className='divider m-0'></div>
         <div className='flex flex-col justify-between'>
           <span>Name : {myClass?.name}</span>

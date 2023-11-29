@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/tech-on-skillup',
+        path: '/teach-on-skillup',
         element: (
           <PrivateRoute>
             <TechOnSkillup />

@@ -33,7 +33,7 @@ const Navbar = () => {
                 All Classes
               </NavLink>
               <NavLink
-                to='tech-on-skillup'
+                to='teach-on-skillup'
                 className={({ isActive }) =>
                   `px-4 py-2 ${isActive ? 'bg-[#03b97c] text-white' : ''}`
                 }

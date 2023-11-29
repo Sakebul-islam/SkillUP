@@ -1,0 +1,19 @@
+.mySwiper5 {
+    width: 100%;
+    height: 100%;
+}
+
+.mySwiper5 .swiper-slide {
+    background: #fff;
+    text-align: left;
+}
+
+.mySwiper5 .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.mySwiper5 .swiper-pagination-bullet-active {
+    background-color: #03b97c;
+}
