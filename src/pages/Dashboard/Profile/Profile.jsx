@@ -27,8 +27,8 @@ const Profile = () => {
             />
           </span>
 
-          <p className='p-2 px-4 text-xs text-white bg-[#03b97cb4] rounded-full mt-4'>
-            {userProfile?.role && userProfile?.role.toUpperCase()}
+          <p className='p-2 px-4 text-xs text-white bg-[#03b97cb4] rounded-full mt-4 uppercase'>
+            {userProfile?.role}
           </p>
           <p className='mt-2 text-xl font-medium text-gray-800 '>
             <span className='inline-block text-base sm:text-lg'>User Id:</span>

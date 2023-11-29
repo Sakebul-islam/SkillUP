@@ -8,6 +8,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AuthProvider from './providers/AuthProvider';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const queryClient = new QueryClient();
 

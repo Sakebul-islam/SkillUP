@@ -5,11 +5,11 @@ import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
 
 import Button from '../../components/Button/Button';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosSecure from '../../api/axiosFunc';
-import { imageUpload } from '../../api/imageUploder';
 import useAuth from '../../hooks/useAuth';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const TechOnSkillup = () => {
   const { user, loading } = useAuth();
@@ -54,39 +54,63 @@ const TechOnSkillup = () => {
       return response?.data;
     },
   });
-  console.log(teacherData);
 
-  const { mutate: requestTeacher, data: requestTeacherResponse } = useMutation({
+  const { mutate: requestTeacher } = useMutation({
     mutationKey: ['teachers'],
-    mutationFn: (requestTeacherData) => {
-      return axiosSecure.post('/teachers', requestTeacherData);
+    mutationFn: async (requestTeacherData) =>
+      await axiosSecure.post('/teachers', requestTeacherData),
+
+    onSuccess: () => {
+      setFormLoading(false);
+      toast.success('Request Successful');
+      reset();
+      queryClient.invalidateQueries({ queryKey: ['teachers'] });
     },
   });
-  const onSubmit = async ({ name, picture, experience, teachOn, category }) => {
+
+  const queryClient = useQueryClient();
+
+  const { mutate: requestReview } = useMutation({
+    mutationKey: ['teachers'],
+    mutationFn: (userEmail) => {
+      return axiosSecure.patch(`/teachers/update-status/${userEmail}`);
+    },
+    onSuccess: () => {
+      toast.success('Request for Review Successfully');
+      queryClient.invalidateQueries({ queryKey: ['teachers'] });
+    },
+  });
+
+  const onSubmit = async ({ name, experience, teachOn, category }) => {
     setFormLoading(true);
     const categoryArray = category.map((item) => item.value);
     try {
-      const imageData = await imageUpload(picture[0]);
-      if (imageData) {
-        const teacherInfo = {
-          name,
-          image: imageData,
-          title: teachOn,
-          experience,
-          categories: categoryArray,
-          email: user?.email,
-          status: 'pending',
-        };
-        await requestTeacher(teacherInfo);
-        if (await requestTeacherResponse?.data?.acknowledged) {
-          setFormLoading(false);
-        }
-      }
+      const teacherInfo = {
+        name: user?.displayName,
+        image: user?.photoURL,
+        title: teachOn,
+        experience,
+        categories: categoryArray,
+        email: user?.email,
+        status: 'pending',
+      };
+      await requestTeacher(teacherInfo);
     } catch (error) {
       console.log(error.message);
     }
   };
 
+  const handleReview = (e) => {
+    e.preventDefault();
+    requestReview(user?.email);
+  };
+  if (teacherData?.approve?.length) {
+    return (
+      <div className='w-full h-screen flex justify-center items-center text-2xl font-bold'>
+        Now You are a Teacher
+      </div>
+    );
+  }
   return (
     <div className='min-h-[calc(100vh-167px)] my-12'>
       <Helmet>
@@ -96,7 +120,11 @@ const TechOnSkillup = () => {
         <SectionHeader heading={'Apply as'} headingSpan={'Teacher'} />
         <div>
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={
+              teacherData?.rejected?.length > 0
+                ? handleReview
+                : handleSubmit(onSubmit)
+            }
             className='flex gap-3 flex-col w-11/12 mx-auto md:w-4/5 lg:w-2/4'
           >
             {/* Name Field  */}
@@ -106,35 +134,16 @@ const TechOnSkillup = () => {
                 className='w-full px-3 py-2 border rounded-sm border-gray-300 focus:outline-[#03b97c] bg-gray-200 text-gray-900'
                 id='name'
                 type='text'
+                defaultValue={user?.displayName}
+                disabled
                 {...register('name', { required: true })}
               />
               {errors.name && (
                 <p className='text-red-500'>
-                  {errors.name.message
+                  {teacherData?.rejected?.length > 0
+                    ? ''
+                    : errors.name.message
                     ? errors.name.message
-                    : 'This field is required'}
-                </p>
-              )}
-            </div>
-            {/* image field  */}
-            <div>
-              <label
-                htmlFor='image'
-                className='inline-block w-full mb-2 text-sm'
-              >
-                Select Your Image:
-              </label>
-              <input
-                type='file'
-                id='image'
-                {...register('picture', { required: true })}
-                accept='image/*'
-                className='w-full px-3 py-2 border rounded-sm border-gray-300 focus:outline-[#03b97c] bg-gray-200 text-gray-900'
-              />
-              {errors.picture && (
-                <p className='text-red-500'>
-                  {errors.picture.message
-                    ? errors.picture.message
                     : 'This field is required'}
                 </p>
               )}
@@ -146,11 +155,14 @@ const TechOnSkillup = () => {
                 className='w-full px-3 py-2 border rounded-sm border-gray-300 focus:outline-[#03b97c] bg-gray-200 text-gray-900'
                 id='teachOn'
                 type='text'
+                disabled={teacherData?.rejected?.length > 0}
                 {...register('teachOn', { required: true })}
               />
-              {errors.teachOn && (
+              {errors.name && (
                 <p className='text-red-500'>
-                  {errors.teachOn.message
+                  {teacherData?.rejected?.length > 0
+                    ? ''
+                    : errors.teachOn.message
                     ? errors.teachOn.message
                     : 'This field is required'}
                 </p>
@@ -160,6 +172,7 @@ const TechOnSkillup = () => {
             <div className='flex gap-1 flex-col justify-between items-start'>
               <label htmlFor='category'>Category (Choose at least 5)</label>
               <Controller
+                disabled={teacherData?.rejected?.length > 0}
                 control={control}
                 name='category'
                 defaultValue={[]}
@@ -180,9 +193,11 @@ const TechOnSkillup = () => {
                     'Select at least 5 options.',
                 }}
               />
-              {errors.category && (
+              {errors.name && (
                 <p className='text-red-500'>
-                  {errors.category.message
+                  {teacherData?.rejected?.length > 0
+                    ? ''
+                    : errors.category.message
                     ? errors.category.message
                     : 'This field is required'}
                 </p>
@@ -194,6 +209,7 @@ const TechOnSkillup = () => {
 
               <select
                 id='experience'
+                disabled={teacherData?.rejected?.length > 0}
                 defaultValue='' // Change defaultValue to ''
                 {...register('experience', { required: true })}
                 className='w-full px-3 py-2 border rounded-sm border-gray-300 focus:outline-[#03b97c] bg-gray-200 text-gray-900 text-xl'
@@ -205,9 +221,12 @@ const TechOnSkillup = () => {
                 <option value='experienced'>Experienced</option>
                 <option value='some-idea'>Has Some Idea</option>
               </select>
-              {errors.experience && (
+
+              {errors.name && (
                 <p className='text-red-500'>
-                  {errors.experience.message
+                  {teacherData?.rejected?.length > 0
+                    ? ''
+                    : errors.experience.message
                     ? errors.experience.message
                     : 'This field is required'}
                 </p>
@@ -217,12 +236,18 @@ const TechOnSkillup = () => {
             {/* Submit Button  */}
             <div>
               <Button
-                disabled={formLoading || teacherData?.pending?.length > 0}
+                disabled={
+                  formLoading ||
+                  teacherData?.pending?.length > 0 ||
+                  teacherData?.approve?.length > 0
+                }
                 type='submit'
               >
-                {teacherData?.status === 'pending'
-                  ? 'Submit for Review'
-                  : 'Under Review'}
+                {teacherData?.pending?.length > 0
+                  ? 'Under Review'
+                  : teacherData?.rejected?.length > 0
+                  ? 'Request to Another'
+                  : 'Submit for review'}
               </Button>
             </div>
           </form>

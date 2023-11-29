@@ -59,11 +59,11 @@ const Feedback = () => {
               },
             }}
             modules={[Autoplay, Pagination]}
-            className='mySwiper2'
+            className='mySwiper2 select-none'
           >
             {feedbacks.map((feedback) => (
               <SwiperSlide key={feedback?._id}>
-                <div className='w-full h-full flex flex-col justify-center p-4 flex-nowrap bg-neutral-100'>
+                <div className='w-full h-full flex flex-col justify-center p-4 flex-nowrap bg-neutral-100 cursor-pointer'>
                   <h3 className='text-2xl font-bold'>{feedback?.classTitle}</h3>
                   <h4 className='text-lg font-medium'>
                     Feedback By : {feedback?.name}

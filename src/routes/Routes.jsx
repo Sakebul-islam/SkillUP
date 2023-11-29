@@ -18,6 +18,10 @@ import TeacherRequest from '../pages/Dashboard/Admin/TeacherRequest';
 import Profile from '../pages/Dashboard/Profile/Profile';
 import AddClass from '../pages/Dashboard/Teacher/AddClass';
 import MyClass from '../pages/Dashboard/Teacher/MyClass';
+import Feedback from '../pages/Dashboard/Admin/Feedback';
+import ClassDetails from '../pages/Dashboard/Teacher/ClassDetails';
+import StudentClassDetails from '../pages/ClassDetail/ClassDetail';
+import UpdateClass from '../pages/Dashboard/Teacher/UpdateClass';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -32,7 +36,19 @@ export const router = createBrowserRouter([
         path: '/all-classes',
         element: (
           <PrivateRoute>
-            <AllClasses />
+            <StudentRoute>
+              <AllClasses />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/class/:id',
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <StudentClassDetails />
+            </StudentRoute>
           </PrivateRoute>
         ),
       },
@@ -64,6 +80,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      // Student Routes
       {
         path: '/dashboard/my-enroll-class',
         element: (
@@ -95,6 +112,26 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: '/dashboard/my-class/:id',
+        element: (
+          <PrivateRoute>
+            <TeacherRoute>
+              <ClassDetails />
+            </TeacherRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/edit/:id',
+        element: (
+          <PrivateRoute>
+            <TeacherRoute>
+              <UpdateClass />
+            </TeacherRoute>
+          </PrivateRoute>
+        ),
+      },
       // Admin Routes
       {
         path: '/dashboard/users',
@@ -122,6 +159,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <AllClassesByAdmin />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/class/:id',
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <Feedback />
             </AdminRoute>
           </PrivateRoute>
         ),

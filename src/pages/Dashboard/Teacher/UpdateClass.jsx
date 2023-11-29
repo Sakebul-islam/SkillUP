@@ -1,65 +1,74 @@
-import Button from '../../../components/Button/Button';
 import SectionHeader from '../../../components/Shared/SectionHeader/SectionHeader';
 import useAuth from '../../../hooks/useAuth';
+import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { singleClass, updateClass } from '../../../api/auth';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { getSingleUsers } from '../../../api/auth';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { imageUpload } from '../../../api/imageUploder';
-import axiosSecure from '../../../api/axiosFunc';
+import Button from '../../../components/Button/Button';
+import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
-const AddClass = () => {
+const UpdateClass = () => {
   const { user } = useAuth();
+  const params = useParams();
   const [load, setLoad] = useState(false);
-  const { data: myInfo, refetch } = useQuery({
-    queryKey: ['myInfo', user?.email],
-    queryFn: async () => await getSingleUsers({ email: user?.email }),
-  });
+  const queryClient = useQueryClient();
 
+  const { data: getSingleClass, refetch } = useQuery({
+    queryKey: ['getSingleClass', user?.email],
+    queryFn: async () => await singleClass(params?.id),
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    reset,
   } = useForm();
 
   useEffect(() => {
-    if (myInfo) {
-      setValue('name', myInfo.name);
-      setValue('email', myInfo.email);
+    if (getSingleClass) {
+      setValue('classTitle', getSingleClass?.classTitle);
+      setValue('name', getSingleClass?.name);
+      setValue('email', getSingleClass.email);
+      setValue('price', getSingleClass.price);
+      setValue('description', getSingleClass.description);
+      setValue('image', getSingleClass.image);
     }
-  }, [myInfo, setValue, load]);
+  }, [getSingleClass, setValue, load]);
 
   const { mutate, isLoading } = useMutation({
     mutationKey: ['class'],
-    mutationFn: (classData) => {
-      return axiosSecure.post('/classes', classData);
+    mutationFn: async (classData) =>
+      await updateClass({ id: getSingleClass?._id, updateData: classData }),
+    onSuccess: (result) => {
+      refetch();
+      toast.success(result);
+      queryClient.invalidateQueries({ queryKey: ['class'] });
     },
   });
 
   const onSubmit = async (data) => {
     try {
       setLoad(true);
-      const imageData = await imageUpload(data?.picture[0]);
+      const imageData = data?.picture[0]
+        ? await imageUpload(data?.picture[0])
+        : 'undefined';
       const classFinalData = {
         name: data?.name,
         email: data?.email,
         classTitle: data?.classTitle,
         price: parseFloat(data?.price),
         description: data?.description,
-        image: imageData,
-        status: 'pending',
+        image: imageData === 'undefined' ? getSingleClass.image : imageData,
       };
-      mutate(classFinalData);
-      toast.success('Class Added Successfully!');
+      await mutate(classFinalData);
     } catch (err) {
       // Handle errors
       toast.error(err.message);
     } finally {
       setLoad(false);
-      reset();
     }
   };
 
@@ -67,7 +76,7 @@ const AddClass = () => {
     <div>
       <div className='my-6'>
         <SectionHeader
-          heading={'Add a class for Your'}
+          heading={'Update Your Class foy your'}
           headingSpan={'Students'}
           headingDescription={
             'Tailor your class content to suit the unique needs of your students. From lecture materials to assignments, make it your own.'
@@ -162,19 +171,14 @@ const AddClass = () => {
               <input
                 type='file'
                 id='image'
-                {...register('picture', { required: true })}
+                {...register('picture')}
                 accept='image/*'
               />
-              {errors.picture && (
-                <span className='text-red-500 inline-block'>
-                  This field is required
-                </span>
-              )}
             </div>
 
             <div>
               <Button disabled={isLoading} type='submit'>
-                Add Class
+                Update Now
               </Button>
             </div>
           </form>
@@ -184,4 +188,4 @@ const AddClass = () => {
   );
 };
 
-export default AddClass;
+export default UpdateClass;
