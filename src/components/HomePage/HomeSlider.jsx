@@ -17,11 +17,11 @@ const HomeSlider = () => {
     'https://i.ibb.co/xqD1Mk6/slide-12.png',
   ];
   return (
-    <>
+    <div className='fade-up'>
       <Container>
         <Slider slideImages={slideImages} />
       </Container>
-    </>
+    </div>
   );
 };
 

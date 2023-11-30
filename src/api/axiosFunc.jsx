@@ -14,7 +14,6 @@ const axiosSecure = axios.create({
 axiosSecure.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log('[axiosSecure] : ', error);
     if (
       (error.response && error.response.status === 401) ||
       (error.response && error.response.status === 403)

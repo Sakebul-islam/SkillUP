@@ -3,6 +3,7 @@ import useAuth from '../../../hooks/useAuth';
 import ClassCard from '../../../components/Dashboard/Teacher/ClassCard';
 import SectionHeader from '../../../components/Shared/SectionHeader/SectionHeader';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -25,6 +26,9 @@ const MyClass = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>My all Classes || Dashboard</title>
+      </Helmet>
       <SectionHeader heading={'My all'} headingSpan={'Classes'} />
       <div className='grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
         {classes.map((item, ind) => (

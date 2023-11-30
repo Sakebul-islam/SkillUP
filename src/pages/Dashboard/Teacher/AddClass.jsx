@@ -8,10 +8,14 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { imageUpload } from '../../../api/imageUploder';
 import axiosSecure from '../../../api/axiosFunc';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 const AddClass = () => {
   const { user } = useAuth();
   const [load, setLoad] = useState(false);
+  const navigate = useNavigate();
+
   const { data: myInfo, refetch } = useQuery({
     queryKey: ['myInfo', user?.email],
     queryFn: async () => await getSingleUsers({ email: user?.email }),
@@ -54,6 +58,7 @@ const AddClass = () => {
       };
       mutate(classFinalData);
       toast.success('Class Added Successfully!');
+      navigate('/dashboard/my-class');
     } catch (err) {
       // Handle errors
       toast.error(err.message);
@@ -65,6 +70,9 @@ const AddClass = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Add Class || Dashboard</title>
+      </Helmet>
       <div className='my-6'>
         <SectionHeader
           heading={'Add a class for Your'}

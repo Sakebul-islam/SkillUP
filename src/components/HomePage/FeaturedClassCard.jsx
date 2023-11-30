@@ -1,9 +1,17 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ClassCard = ({ course }) => {
-  console.log(course);
+  useEffect(() => {
+    AOS.init({
+      duration: 3000,
+    });
+  }, []);
+
   return (
-    <div className='flex flex-col rounded-md bg-neutral-100'>
+    <div className='flex flex-col rounded-md bg-neutral-100' data-aos='zoom-in'>
       <figure className=''>
         <img
           className='min-h-[162px] sm:max-h-96 w-full rounded-t-md'

@@ -5,14 +5,24 @@ import platform_overview from '../../assets/images/platform_overview.png';
 import { getSiteStats } from '../../api/auth';
 import { useQuery } from '@tanstack/react-query';
 
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 const PlatformOverview = () => {
   const { data: siteStats = {} } = useQuery({
     queryKey: ['siteStats'],
     queryFn: async () => await getSiteStats(),
   });
 
+  useEffect(() => {
+    AOS.init({
+      duration: 3000,
+    });
+  }, []);
+
   return (
-    <div className='my-6'>
+    <div className='my-6' data-aos='zoom-in'>
       <Container>
         <SectionHeader
           heading={'Dive into our'}

@@ -9,6 +9,7 @@ import { imageUpload } from '../../../api/imageUploder';
 import Button from '../../../components/Button/Button';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const UpdateClass = () => {
   const { user } = useAuth();
@@ -74,6 +75,9 @@ const UpdateClass = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Update Class || Dashboard</title>
+      </Helmet>
       <div className='my-6'>
         <SectionHeader
           heading={'Update Your Class foy your'}

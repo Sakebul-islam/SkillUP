@@ -1,32 +1,18 @@
-import ReactStars from 'react-rating-stars-component';
-
 // Import Swiper React components
+import ReactStars from 'react-rating-stars-component';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import './Feedback.css';
-
-// import required modules
-import { Autoplay, Pagination } from 'swiper/modules';
-import SectionHeader from '../Shared/SectionHeader/SectionHeader';
+import Container from '../../../components/Shared/Container';
+import SectionHeader from '../../../components/Shared/SectionHeader/SectionHeader';
 import { useQuery } from '@tanstack/react-query';
-import axiosSecure from '../../api/axiosFunc';
-import Container from '../Shared/Container';
+import axiosSecure from '../../../api/axiosFunc';
 
-import { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
-const Feedback = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 3000,
-    });
-  }, []);
-
+const StudentDashboard = () => {
   const { data: feedbacks = [] } = useQuery({
     queryKey: ['feedbacks'],
     queryFn: async () => {
@@ -37,7 +23,7 @@ const Feedback = () => {
 
   return (
     <div className='py-6'>
-      <Container>
+      {/* <Container> */}
         <SectionHeader
           heading={'Student'}
           headingSpan={'Feedbacks'}
@@ -59,11 +45,19 @@ const Feedback = () => {
                 slidesPerView: 1,
                 spaceBetween: 20,
               },
-              768: {
+              600: {
                 slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 1,
                 spaceBetween: 40,
               },
               1024: {
+                slidesPerView: 2,
+                spaceBetween: 50,
+              },
+              1200: {
                 slidesPerView: 3,
                 spaceBetween: 50,
               },
@@ -73,10 +67,7 @@ const Feedback = () => {
           >
             {feedbacks.map((feedback) => (
               <SwiperSlide key={feedback?._id}>
-                <div
-                  className='w-full h-full flex flex-col justify-center p-4 flex-nowrap bg-neutral-100 cursor-pointer'
-                  data-aos='zoom-in'
-                >
+                <div className='w-full h-full flex flex-col justify-center p-4 flex-nowrap bg-neutral-100 cursor-pointer'>
                   <h3 className='text-2xl font-bold'>{feedback?.classTitle}</h3>
                   <h4 className='text-lg font-medium'>
                     Feedback By : {feedback?.name}
@@ -89,7 +80,7 @@ const Feedback = () => {
                     />
                   </figure>
                   <p>{feedback?.text}</p>
-                  <div className='grid place-content-center zoom-in'>
+                  <div className='grid place-content-center'>
                     <ReactStars
                       value={feedback?.rating}
                       edit={false}
@@ -103,9 +94,9 @@ const Feedback = () => {
             ))}
           </Swiper>
         </div>
-      </Container>
+      {/* </Container> */}
     </div>
   );
 };
 
-export default Feedback;
+export default StudentDashboard;

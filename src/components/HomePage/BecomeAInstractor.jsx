@@ -1,14 +1,26 @@
-import React from 'react';
+
 import Container from '../Shared/Container';
 
 import instractorThum from '../../assets/images/become_a_instractor.jpg';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const BecomeAInstractor = () => {
+    useEffect(() => {
+      AOS.init({
+        duration: 3000,
+      });
+    }, []);
+
   return (
     <div className='my-6'>
       <Container>
-        <div className='md:h-[40vh] flex flex-col md:flex-row items-center gap-6 overflow-hidden'>
+        <div
+          className='md:h-[40vh] flex flex-col md:flex-row items-center gap-6 overflow-hidden'
+          data-aos='zoom-in-left'
+        >
           <div className='flex-1 flex justify-center items-center overflow-hidden'>
             <img className='inline-block' src={instractorThum} alt='' />
           </div>

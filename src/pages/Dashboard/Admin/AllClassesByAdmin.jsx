@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import AllClassesDataRow from '../../../components/Dashboard/Admin/AllClassesDataRow';
 import Container from '../../../components/Shared/Container';
 import { getAllClassesByAdmin } from '../../../api/auth';
+import { Helmet } from 'react-helmet-async';
 
 const AllClassesByAdmin = () => {
   const { data: teacherClasses = [] } = useQuery({
@@ -11,6 +12,9 @@ const AllClassesByAdmin = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>All Class Monitoring || Dashboard</title>
+      </Helmet>
       <div className='py-8'>
         <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 !overflow-x-auto'>
           <div className='inline-block min-w-full shadow !overflow-hidden'>

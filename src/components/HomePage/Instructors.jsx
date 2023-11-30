@@ -4,7 +4,9 @@ import SectionHeader from '../Shared/SectionHeader/SectionHeader';
 import InstructorCard from './InstructorCard';
 import { getTopTeachers } from '../../api/auth';
 
+
 const Instructors = () => {
+
   const { data: topTeachers = [] } = useQuery({
     queryKey: ['topTeachers'],
     queryFn: async () => await getTopTeachers(),

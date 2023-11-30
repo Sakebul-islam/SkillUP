@@ -107,7 +107,7 @@ const UserDataRow = ({ item }) => {
               aria-hidden='true'
               className='absolute inset-0 bg-red-200 opacity-50 rounded-full'
             ></span>
-            <span className='relative truncate'>SeeProgress</span>
+            <span className='relative truncate'>See Progress</span>
           </button>
         </dir>
       </td>

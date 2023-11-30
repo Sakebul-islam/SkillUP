@@ -12,6 +12,11 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 const queryClient = new QueryClient();
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+AOS.init();
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <HelmetProvider>
     <AuthProvider>

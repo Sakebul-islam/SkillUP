@@ -104,8 +104,8 @@ const UserDataRow = ({ user, refetch }) => {
         <dir className='flex flex-col justify-evenly p-0 gap-4'>
           <button
             onClick={handleApproved}
-            disabled={user?.status === 'approve'}
-            className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight w-full'
+            disabled={user?.status === 'approve' || user?.status === 'reject'}
+            className={`relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight w-full ${user?.status === 'pending' ? 'cursor-pointer':'cursor-not-allowed'}`}
           >
             <span
               aria-hidden='true'
@@ -115,8 +115,8 @@ const UserDataRow = ({ user, refetch }) => {
           </button>
           <button
             onClick={handleReject}
-            disabled={user?.status === 'reject'}
-            className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight w-full'
+            disabled={user?.status === 'approve' || user?.status === 'reject'}
+            className={`relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight w-full ${user?.status === 'pending' ? 'cursor-pointer':'cursor-not-allowed'}`}
           >
             <span
               aria-hidden='true'

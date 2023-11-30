@@ -1,8 +1,21 @@
 import { BsFillPersonFill } from 'react-icons/bs';
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const InstructorCard = ({ teacher }) => {
+    useEffect(() => {
+      AOS.init({
+        duration: 3000,
+      });
+    }, []);
+
   return (
-    <div className=' bg-neutral-100'>
+    <div
+      className=' bg-neutral-100'
+      data-aos='fade-up'
+      data-aos-duration='3000'
+    >
       <figure className='p-2'>
         <img className='w-full' src={teacher?.image} alt='' />
       </figure>

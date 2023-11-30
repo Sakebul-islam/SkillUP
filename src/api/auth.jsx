@@ -2,6 +2,7 @@ import axiosSecure, { axiosPublic } from './axiosFunc';
 
 // get token from server
 export const getToken = async (email) => {
+  console.log(email);
   const { data } = await axiosSecure.post(`/jwt`, { email });
   console.log(data);
   return data;
@@ -14,8 +15,11 @@ export const clearCookie = async () => {
 };
 
 // get all user
-export const getAllUsers = async () => {
-  const { data } = await axiosSecure(`/users`);
+export const getAllUsers = async (searchTerm) => {
+  console.log(searchTerm);
+  const { data } = await axiosSecure(
+    searchTerm ? `/users?searchTerm=${searchTerm}` : '/users'
+  );
   return data;
 };
 
@@ -117,6 +121,28 @@ export const makePayment = async ({ id, paymentInfo }) => {
   const { data } = await axiosSecure.post(`/payments/${id}`, paymentInfo);
   return data;
 };
+// get enrolled classes of student
+export const getMyClasses = async (email) => {
+  const { data } = await axiosSecure(`/enrolled-classes/${email}`);
+  return data;
+};
+// submit Assignment
+export const submitAssignment = async (assignmentInfo) => {
+  const { data } = await axiosSecure.post('/submit-assignment', assignmentInfo);
+  return data;
+};
+// submit feedback
+export const addFeedback = async (feedback) => {
+  console.log(feedback);
+  const { data } = await axiosSecure.post('/submit-feedback', feedback);
+  return data;
+};
+
+// get status assignment submit or not
+export const checkAssignment = async (assignmentInfo) => {
+  const { data } = await axiosSecure.get(`/check-assignment?${assignmentInfo}`);
+  return data;
+};
 
 // get site stats
 export const getSiteStats = async () => {
@@ -129,7 +155,7 @@ export const getTopTeachers = async () => {
   const { data } = await axiosPublic('/top-teachers');
   return data;
 };
-// get top 4 teacher
+// get top featuredCourses
 export const featuredCourses = async () => {
   const { data } = await axiosPublic('/featured-courses');
   return data;

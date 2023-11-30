@@ -6,6 +6,7 @@ import { getSingleUsers, singleClass } from '../../api/auth';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import PayModal from '../../components/Modal/PayModal';
+import { Helmet } from 'react-helmet-async';
 
 const ClassDetail = () => {
   const { user } = useAuth();
@@ -50,6 +51,9 @@ const ClassDetail = () => {
   };
   return (
     <div className='min-h-[calc(100vh-167px)] h-full py-8'>
+      <Helmet>
+        <title>Class Details || SkillUP</title>
+      </Helmet>
       <Container>
         <SectionHeader
           heading={'Class'}

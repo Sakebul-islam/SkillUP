@@ -22,6 +22,7 @@ import Feedback from '../pages/Dashboard/Admin/Feedback';
 import ClassDetails from '../pages/Dashboard/Teacher/ClassDetails';
 import StudentClassDetails from '../pages/ClassDetail/ClassDetail';
 import UpdateClass from '../pages/Dashboard/Teacher/UpdateClass';
+import MyClassDetails from '../pages/Dashboard/Student/MyClassDetails';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -34,13 +35,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/all-classes',
-        element: (
-          <PrivateRoute>
-            <StudentRoute>
-              <AllClasses />
-            </StudentRoute>
-          </PrivateRoute>
-        ),
+        element: <AllClasses />,
       },
       {
         path: '/class/:id',
@@ -87,6 +82,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <StudentRoute>
               <MyEnrollClass />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/myenroll-class/:id',
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <MyClassDetails />
             </StudentRoute>
           </PrivateRoute>
         ),

@@ -6,19 +6,34 @@ import { MdAddCircle } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
 import { singleClass } from '../../../api/auth';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import axiosSecure from '../../../api/axiosFunc';
 
 const ClassDetails = () => {
   let [isOpen, setIsOpen] = useState(false);
   const params = useParams();
+
   const { data: classInfo = [], refetch } = useQuery({
     queryKey: ['getSingleClass'],
     queryFn: async () => await singleClass(params?.id),
+  });
+  const { data: todayTotalAssignment } = useQuery({
+    queryKey: ['TotalAssignment'],
+    queryFn: async () => {
+      const { data } = await axiosSecure(
+        `/submitted-assignments/${params?.id}`
+      );
+      return data;
+    },
   });
 
   const { assignment } = classInfo;
 
   return (
     <div>
+      <Helmet>
+        <title>Class Progress || Dashboard</title>
+      </Helmet>
       <Container>
         <div className='my-6'>
           <SectionHeader
@@ -43,7 +58,7 @@ const ClassDetails = () => {
               <span className='mb-2 border-b capitalize'>
                 Today Assignment Submitted
               </span>
-              <span className='text-4xl'>- - -</span>
+              <span className='text-4xl'> {todayTotalAssignment} </span>
             </div>
           </div>
         </div>
