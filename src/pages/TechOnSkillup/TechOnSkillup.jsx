@@ -55,7 +55,7 @@ const TechOnSkillup = () => {
     },
   });
 
-  const { mutate: requestTeacher } = useMutation({
+  const { mutate: requestTeacher = {} } = useMutation({
     mutationKey: ['teachers'],
     mutationFn: async (requestTeacherData) =>
       await axiosSecure.post('/teachers', requestTeacherData),
@@ -81,7 +81,7 @@ const TechOnSkillup = () => {
     },
   });
 
-  const onSubmit = async ({ name, experience, teachOn, category }) => {
+  const onSubmit = async ({ experience, teachOn, category }) => {
     setFormLoading(true);
     const categoryArray = category.map((item) => item.value);
     try {
@@ -136,9 +136,9 @@ const TechOnSkillup = () => {
                 type='text'
                 defaultValue={user?.displayName}
                 disabled
-                {...register('name', { required: true })}
+                {...register('name')}
               />
-              {errors.name && (
+              {/* {errors.name && (
                 <p className='text-red-500'>
                   {teacherData?.rejected?.length > 0
                     ? ''
@@ -146,7 +146,7 @@ const TechOnSkillup = () => {
                     ? errors.name.message
                     : 'This field is required'}
                 </p>
-              )}
+              )} */}
             </div>
             {/* Title field  */}
             <div className='flex gap-1 flex-col justify-between items-start'>
@@ -158,7 +158,7 @@ const TechOnSkillup = () => {
                 disabled={teacherData?.rejected?.length > 0}
                 {...register('teachOn', { required: true })}
               />
-              {errors.name && (
+              {errors.teachOn && (
                 <p className='text-red-500'>
                   {teacherData?.rejected?.length > 0
                     ? ''
@@ -193,7 +193,7 @@ const TechOnSkillup = () => {
                     'Select at least 5 options.',
                 }}
               />
-              {errors.name && (
+              {errors.category && (
                 <p className='text-red-500'>
                   {teacherData?.rejected?.length > 0
                     ? ''
@@ -222,7 +222,7 @@ const TechOnSkillup = () => {
                 <option value='some-idea'>Has Some Idea</option>
               </select>
 
-              {errors.name && (
+              {errors.experience && (
                 <p className='text-red-500'>
                   {teacherData?.rejected?.length > 0
                     ? ''
