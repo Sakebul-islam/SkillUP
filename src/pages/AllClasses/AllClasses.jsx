@@ -27,7 +27,7 @@ const AllClasses = () => {
             'Embark on a learning journey with our rich selection of diverse and engaging Classes'
           }
         />
-        <div className='grid gap-6 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+        <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
           {classesData.map((item) => (
             <Card key={item?._id} data={item} />
           ))}

@@ -32,7 +32,7 @@ const Users = () => {
         <form className='flex justify-center items-center'>
           <span
             onClick={() => setSearch(null)}
-            className='p-3 bg-[#03b97c] inline-block truncate cursor-pointer z-10'
+            className='p-3 bg-[#03b97c] inline-block truncate cursor-pointer z-[2]'
           >
             All
           </span>
@@ -42,7 +42,7 @@ const Users = () => {
             placeholder='Type here'
             className='input focus:outline input-bordered rounded-none input-accent w-full max-w-xs'
           />
-          <span className='p-3 bg-[#03b97c] inline-block truncate cursor-pointer z-10'>
+          <span className='p-3 bg-[#03b97c] inline-block truncate cursor-pointer z-[2]'>
             Search User
           </span>
         </form>

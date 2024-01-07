@@ -7,6 +7,8 @@ import BecomeAInstractor from '../../components/HomePage/BecomeAInstractor';
 import MapSection from '../../components/HomePage/MapSection';
 import Instructors from '../../components/HomePage/Instructors';
 import FeaturedCourses from '../../components/HomePage/FeaturedCourses';
+import CourseContent from '../../components/HomePage/CourseContent';
+import Questions from '../../components/HomePage/Questions';
 
 const Home = () => {
   return (
@@ -19,8 +21,10 @@ const Home = () => {
       <Feedback />
       <FeaturedCourses />
       <Instructors />
+      <CourseContent />
       <PlatformOverview />
       <BecomeAInstractor />
+      <Questions />
       <MapSection />
     </>
   );

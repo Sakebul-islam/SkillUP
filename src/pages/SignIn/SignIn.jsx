@@ -50,9 +50,7 @@ const SignIn = () => {
         role: 'student',
       });
       toast.success('Login Success');
-      navigate(`${location?.state ? location?.state : '/'}`, {
-        replace: true,
-      });
+      navigate(`${location?.state ? location?.state : '/'}`);
     } catch (err) {
       toast.error(err?.message);
     }

@@ -15,13 +15,13 @@ const BecomeAInstractor = () => {
     }, []);
 
   return (
-    <div className='my-6'>
+    <div className='my-6 overflow-x-hidden'>
       <Container>
         <div
           className='md:h-[40vh] flex flex-col md:flex-row items-center gap-6 overflow-hidden'
           data-aos='zoom-in-left'
         >
-          <div className='flex-1 flex justify-center items-center overflow-hidden'>
+          <div className='flex-1 flex justify-center items-center'>
             <img className='inline-block' src={instractorThum} alt='' />
           </div>
           <div className='flex-1 space-y-4'>

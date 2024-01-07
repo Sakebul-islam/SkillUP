@@ -12,7 +12,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { app } from '../firebase/firebase.config';
-import { clearCookie } from '../api/auth';
+import { clearCookie, getToken } from '../api/auth';
 
 export const AuthContext = createContext({
   user: null,
