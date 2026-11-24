@@ -2,12 +2,8 @@
 
 ## Backend Code : [SkillUP](https://github.com/Sakebul-islam/skillup-server-side.git)
 
-2. **Admin email: mdsakebul66@gmail.com**
-3. **Admin password: 123!Az**
-4. **Teacher email: teacher@gmail.com**
-5. **Teacher password: teacher@gmail.com**
-6. **Student email: student1@nasmis.com**
-7. **Student password: student1@nasmis.com**
+
+Demo accounts for the admin, teacher and student roles are available on request.
 
 ## Project Overview
 
